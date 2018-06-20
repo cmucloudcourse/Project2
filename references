@@ -1,0 +1,26 @@
+Manas:.m2 Manas$ cat /Users/Manas/Cloud_course/aws/project1/Project1/references
+{
+  "referenceGuide":"Cite all the reference sources in the required format. Proper citations will help you avoid unnecessary trouble but does not make it acceptable to copy code. Read the course and university policy statements in this regard. When working with others, limit the discussion to block diagrams and arrows. Do not look at another students' code. Read the JSON semantics and make use of JSON validator from the Internet if needed.",
+  "websites":[
+    {
+      "title":"Tagging Your Amazon EC2 Resources",
+      "url":"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html",
+      "code":"Not Used in Code.",
+      "description":"Used to understand that EC2 instances can not be tagged on creation"
+    },
+    {
+      "title":"awsdocs/aws-doc-sdk-examples",
+      "url":"https://github.com/awsdocs/aws-doc-sdk-examples",
+      "code":"Used to see examples of creating instances in EC2",
+      "description":"Used to see examples of creating instances in EC2"
+    },
+    {
+      "title":"Tutorial: Amazon EC2 Spot Instances",
+      "url":"https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/tutorial-spot-instances-java.html",
+      "code":"Used in requesting spot instances",
+      "description":"Still to implement this option."
+    }
+
+
+  ]
+}
