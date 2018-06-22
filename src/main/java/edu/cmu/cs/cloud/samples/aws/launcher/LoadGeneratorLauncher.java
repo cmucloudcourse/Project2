@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class LoadGeneratorLauncher {
     private static final String AMI_ID         = "ami-2575315a";
-    private static final String INSTANCE_TYPE  = "m3.medium";
+    private static final String INSTANCE_TYPE  = "t2.micro";
     private static final String KEY_NAME       = "15319-demo";
     private static final String SECURITY_GROUP = "sg-0915e3b86fdf658ec";
     private static final List<Tag> tags = new ArrayList<>();
@@ -24,6 +24,16 @@ public class LoadGeneratorLauncher {
         tags.add(new Tag("project","2"));
         tags.add(new Tag("type","LoadGenerator"));
         lginstance = LaunchEC2Instance.launchInstance(AMI_ID,INSTANCE_TYPE,KEY_NAME,SECURITY_GROUP,tags);
+//        LaunchEC2Instance.describeInstance(lginstance);
+        LoadGenerator.getInstance();
+        LoadGenerator.init(lginstance);
+        return lginstance.getInstanceId();
+    }
+
+    public static String launchLoadGenerator(String securityGroupID){
+        tags.add(new Tag("project","2"));
+        tags.add(new Tag("type","LoadGenerator"));
+        lginstance = LaunchEC2Instance.launchInstance(AMI_ID,INSTANCE_TYPE,KEY_NAME,securityGroupID,tags);
 //        LaunchEC2Instance.describeInstance(lginstance);
         LoadGenerator.getInstance();
         LoadGenerator.init(lginstance);

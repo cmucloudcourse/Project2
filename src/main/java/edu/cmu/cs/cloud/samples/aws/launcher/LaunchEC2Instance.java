@@ -137,6 +137,17 @@ public class LaunchEC2Instance {
     }
 
 
+    private static void waitUntilTerminate(String instanceId){
+        AmazonEC2 ec = AmazonEC2ClientBuilder.defaultClient();
+        Waiter waiter =  ec.waiters().instanceStopped();
+        System.out.println("Waiting for instance to terminate");
+        waiter.run(new WaiterParameters<>(
+                new DescribeInstancesRequest().withInstanceIds(instanceId)));
+        System.out.println("Instance is terminated");
+    }
+
+
+
     public static void shutDown(String instanceId){
         AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
         DryRunSupportedRequest<StopInstancesRequest> dryRequest = ()->{
@@ -158,6 +169,117 @@ public class LaunchEC2Instance {
     }
 
 
-    public static void terminate(String instanceID){}
+    public static void terminate(String instanceID){
+
+        System.out.println("Terminating instace-id "+instanceID);
+        AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
+        DryRunSupportedRequest<TerminateInstancesRequest> dryRequest = ()->{
+            TerminateInstancesRequest request = new TerminateInstancesRequest().withInstanceIds(instanceID);
+            return request.getDryRunRequest();
+        };
+        DryRunResult dryResponse = ec2.dryRun(dryRequest);
+
+        if(dryResponse.isSuccessful()){
+            System.out.println("Describe Request Dry Run successful. Proceeeding with actual request");
+        }else{
+            System.out.println("Describe Request Dry run request failed. Will not process the request further");
+        }
+
+        TerminateInstancesRequest request = new TerminateInstancesRequest().withInstanceIds(instanceID);
+        TerminateInstancesResult response = ec2.terminateInstances(request);
+        System.out.println("Terminating instance-id "+instanceID);
+        waitUntilTerminate(instanceID);
+
+    }
+
+    public static String createSecurityGroup(String groupName){
+
+        final AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
+
+        //dry run
+        DryRunSupportedRequest<CreateSecurityGroupRequest> dryRequest = ()->{
+            CreateSecurityGroupRequest request = new
+                    CreateSecurityGroupRequest()
+                    .withGroupName(groupName)
+                    .withDescription(groupName);
+
+            return request.getDryRunRequest();
+        };
+        DryRunResult dryResponse = ec2.dryRun(dryRequest);
+
+        if(dryResponse.isSuccessful()){
+            System.out.println("Describe Request Dry Run successful. Proceeeding with actual request");
+        }else{
+            System.out.println("Describe Request Dry run request failed. Will not process the request further");
+        }
+
+        CreateSecurityGroupRequest request = new
+                CreateSecurityGroupRequest()
+                .withGroupName(groupName)
+                .withDescription(groupName);
+
+        CreateSecurityGroupResult result = ec2.createSecurityGroup(request);
+        String groupID = result.getGroupId();
+
+        IpRange ip_range = new IpRange()
+                .withCidrIp("0.0.0.0/0");
+
+        IpPermission ingress_ip_perm = new IpPermission()
+                .withIpProtocol("tcp")
+                .withToPort(80)
+                .withFromPort(80)
+                .withIpv4Ranges(ip_range);
+
+
+        AuthorizeSecurityGroupIngressRequest auth_request = new
+                AuthorizeSecurityGroupIngressRequest()
+                .withGroupName(groupName)
+                .withIpPermissions(ingress_ip_perm);
+
+        //No need to set egress since it is all all by default.
+
+        AuthorizeSecurityGroupIngressResult auth_response =
+                ec2.authorizeSecurityGroupIngress(auth_request);
+
+        System.out.println("Successfully created Security Group "+ groupName+" with group id "+groupID);
+        return groupID;
+    }
+
+
+    public static void deleteSecurityGroup(String groupName){
+
+        System.out.println("Deleting security group "+groupName);
+
+        final AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
+
+        //dry run
+        DryRunSupportedRequest<DeleteSecurityGroupRequest> dryRequest = ()->{
+            DeleteSecurityGroupRequest request = new
+                    DeleteSecurityGroupRequest()
+                    .withGroupName(groupName);
+
+            return request.getDryRunRequest();
+        };
+        DryRunResult dryResponse = ec2.dryRun(dryRequest);
+
+        if(dryResponse.isSuccessful()){
+            System.out.println("Delete Security group Dry Run successful. Proceeding with actual request");
+        }else{
+            System.out.println("Delete Security group Dry run request failed. Will not process the request further");
+        }
+
+        DeleteSecurityGroupRequest request = new
+                DeleteSecurityGroupRequest()
+                .withGroupName(groupName);
+
+        DeleteSecurityGroupResult result = ec2.deleteSecurityGroup(request);
+        System.out.println(result.toString());
+        System.out.println("Successfully deleted Security Group "+ groupName);
+
+    }
+
+
+
+
 
 }
