@@ -3,7 +3,8 @@ This project uses AWS JAVA APIs to launch a load generator and web service insta
 
 Below is the result from load generator run : 
 
-`; 2018-06-21T23:57:41+00:00
+`
+; 2018-06-21T23:57:41+00:00
 ; Horizontal Scaling Test
 ; isTestingThroughCode=true
 ; Test launched. Please check every minute for update.
@@ -189,4 +190,5 @@ hostname=ec2-18-206-160-186.compute-1.amazonaws.com
 rps=66.31
 pass=true
 endTime=2018-06-22T00:14:47+00:00
-{"status":1209,"success":true,"message":"Your submission is in processing, submission token is:manasshukla.official@gmail.com_vm-scaling_p2-task1-aws_390764938 Wait and check your code, score and feedback on TPZ."}`
+{"status":1209,"success":true,"message":"Your submission is in processing, submission token is:manasshukla.official@gmail.com_vm-scaling_p2-task1-aws_390764938 Wait and check your code, score and feedback on TPZ."}
+`
