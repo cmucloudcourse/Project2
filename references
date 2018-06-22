@@ -4,7 +4,7 @@ Manas:.m2 Manas$ cat /Users/Manas/Cloud_course/aws/project1/Project1/references
   "websites":[
     {
       "title":"Tagging Your Amazon EC2 Resources",
-      "url":"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html",
+      "url":"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.edu.cmu.cs.cloud.samples.aws.html",
       "code":"Not Used in Code.",
       "description":"Used to understand that EC2 instances can not be tagged on creation"
     },
@@ -16,11 +16,22 @@ Manas:.m2 Manas$ cat /Users/Manas/Cloud_course/aws/project1/Project1/references
     },
     {
       "title":"Tutorial: Amazon EC2 Spot Instances",
-      "url":"https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/tutorial-spot-instances-java.html",
+      "url":"https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/tutorial-spot-instances-java.edu.cmu.cs.cloud.samples.aws.html",
       "code":"Used in requesting spot instances",
-      "description":"Still to implement this option."
+      "description":"This is not implemented."
+    },
+    {
+        "title":"Tutorial: Amazon EC2 Spot Instances",
+        "url":"https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/tutorial-spot-instances-java.html",
+        "code":"Used in requesting spot instances",
+        "description":"This is not implemented."
     }
-
+    {
+        "title":"Class DescribeInstancesRequest",
+        "url":"https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/index.html?com/amazonaws/services/ec2/model/DescribeInstancesRequest.html",
+        "code":"Used for description of instances",
+        "description":"Used in LauchEC2Instance"
+    }
 
   ]
 }

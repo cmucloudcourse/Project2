@@ -8,8 +8,6 @@ import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.*;
 import com.amazonaws.waiters.Waiter;
 import com.amazonaws.waiters.WaiterParameters;
-import com.amazonaws.waiters.WaiterTimedOutException;
-import com.amazonaws.waiters.WaiterUnrecoverableException;
 import edu.cmu.cs.cloud.samples.aws.exeptions.DryRunException;
 
 import java.util.List;
@@ -27,6 +25,9 @@ public class LaunchEC2Instance {
                 .withCredentials(credentialsProvider)
                 .withRegion(Regions.US_EAST_1)
                 .build();
+
+
+
 
         // Create a Run Instance Request
         RunInstancesRequest runInstancesRequest = new RunInstancesRequest()
@@ -49,7 +50,7 @@ public class LaunchEC2Instance {
                 .get(0);
 
         waitUntilRunning(instance.getInstanceId());
-
+//        waitUntilInit(instance.getInstanceId());
         CreateTagsRequest createTagsRequest = new CreateTagsRequest();
         createTagsRequest.withResources(instance.getInstanceId()).withTags(tags);
         ec2.createTags(createTagsRequest);
@@ -117,6 +118,15 @@ public class LaunchEC2Instance {
         System.out.println("Instance is running");
     }
 
+    private static void waitUntilInit(String instanceId){
+        AmazonEC2 ec = AmazonEC2ClientBuilder.defaultClient();
+        Waiter waiter =  ec.waiters().systemStatusOk();
+        System.out.println("Waiting for instance to initialize");
+        waiter.run(new WaiterParameters<>(
+                new DescribeInstanceStatusRequest().withInstanceIds(instanceId)));
+        System.out.println("Instance is initialised");
+    }
+
     private static void waitUntilStop(String instanceId){
         AmazonEC2 ec = AmazonEC2ClientBuilder.defaultClient();
         Waiter waiter =  ec.waiters().instanceStopped();
@@ -146,5 +156,8 @@ public class LaunchEC2Instance {
         waitUntilStop(instanceId);
 
     }
+
+
+    public static void terminate(String instanceID){}
 
 }

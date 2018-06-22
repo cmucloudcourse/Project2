@@ -3,7 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.cmu.cs.cloud.samples.aws</groupId>
 	<artifactId>project2</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.0
+
+	</version>
 	<properties>
 		<java.version>1.8</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
@@ -16,5 +18,26 @@
 			<artifactId>aws-java-sdk</artifactId>
 			<version>1.11.155</version>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<!-- jsoup HTML parser library @ https://jsoup.org/ -->
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.11.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ini4j</groupId>
+			<artifactId>ini4j</artifactId>
+			<version>0.5.4</version>
+		</dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz-jobs</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+    </dependencies>
 </project>
