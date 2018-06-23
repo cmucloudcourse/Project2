@@ -273,7 +273,6 @@ public class LaunchEC2Instance {
                 .withGroupName(groupName);
 
         DeleteSecurityGroupResult result = ec2.deleteSecurityGroup(request);
-        System.out.println(result.toString());
         System.out.println("Successfully deleted Security Group "+ groupName);
 
     }
