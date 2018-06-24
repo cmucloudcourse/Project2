@@ -50,7 +50,6 @@ public class LaunchEC2Instance {
                 .get(0);
 
         waitUntilRunning(instance.getInstanceId());
-//        waitUntilInit(instance.getInstanceId());
         CreateTagsRequest createTagsRequest = new CreateTagsRequest();
         createTagsRequest.withResources(instance.getInstanceId()).withTags(tags);
         ec2.createTags(createTagsRequest);

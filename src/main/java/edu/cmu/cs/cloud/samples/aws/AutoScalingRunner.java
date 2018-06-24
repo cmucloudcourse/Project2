@@ -2,19 +2,18 @@ package edu.cmu.cs.cloud.samples.aws;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.services.autoscaling.model.AmazonAutoScalingException;
-import edu.cmu.cs.cloud.samples.aws.launcher.LaunchConfigLauncher;
-import edu.cmu.cs.cloud.samples.aws.launcher.LaunchEC2Instance;
-import edu.cmu.cs.cloud.samples.aws.launcher.LoadGeneratorLauncher;
+import edu.cmu.cs.cloud.samples.aws.launcher.*;
 import edu.cmu.cs.cloud.samples.aws.pojos.LoadGenerator;
+import edu.cmu.cs.cloud.samples.aws.pojos.TargetGroup;
 
-import java.security.Security;
 import java.util.*;
 
 public class AutoScalingRunner {
 
-    public static final Map<String, String> sgMap = new HashMap<>();
-    public static final String launchconfig = "project2-lc";
-
+    private static final Map<String, String> sgMap = new HashMap<>();
+    private static final String LAUNCHCONFIG = "project2-lc";
+    private static final String TARGET_GROUP = "project2-tg";
+    private static final Map<String,TargetGroup> targetGroups = new HashMap<>();
 
 
 
@@ -27,7 +26,7 @@ public class AutoScalingRunner {
         setup(sgMap.keySet());
 
 
-        tearDown(sgMap.keySet(), Arrays.asList(LoadGenerator.getInstance().getInstanceID()), launchconfig);
+//        tearDown(sgMap.keySet(), Arrays.asList(LoadGenerator.getInstance().getInstanceID()), LAUNCHCONFIG);
     }
 
 
@@ -35,13 +34,18 @@ public class AutoScalingRunner {
     private static void setup(Set<String> securityGroups) {
 
         //Create security groups
-        setupSecurityGroups(securityGroups);
-
-        //Launch Load Generator
+//        setupSecurityGroups(securityGroups);
+//
+//        //Launch Load Generator
 //        LoadGeneratorLauncher.launchLoadGenerator(sgMap.get("loadbalancer"));
-
-        //Create Launch Config
-        LaunchConfigLauncher.createLaunchConfig(launchconfig,securityGroups);
+//
+//        //Create Launch Config
+//        LaunchConfigLauncher.createLaunchConfig(LAUNCHCONFIG,securityGroups);
+//
+//        //Create target group
+//        targetGroups.put(TARGET_GROUP,(TargetGroupLauncher.launchTargetGroup(TARGET_GROUP)));
+//        VPCDescriber.describeVPC();
+        VPCDescriber.getDefaultSubnets();
     }
 
 
@@ -49,7 +53,7 @@ public class AutoScalingRunner {
 
 
         //Terminating instances
-//        teardownInstances(instances);
+        teardownInstances(instances);
 
         //Deleting security groups
         teardownSecurityGroups(securityGroups);
@@ -57,6 +61,9 @@ public class AutoScalingRunner {
 
         //Deleting Launch config
         teardownLaunchConfig(launchConfigName);
+
+        //Delete Target Group
+        TargetGroupLauncher.deleteTargetGroup(targetGroups.get(TARGET_GROUP).getArn());
 
     }
 
