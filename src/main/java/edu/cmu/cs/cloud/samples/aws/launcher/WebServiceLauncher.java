@@ -32,6 +32,16 @@ public class WebServiceLauncher {
         return wsintance.getInstanceId();
     }
 
+    public static String launchWebService(String securityGroupId){
+        tags.add(new Tag("project","2"));
+        tags.add(new Tag("type","WebService"));
+        tags.add(new Tag("instance",String.valueOf(count++)));
+        wsintance = LaunchEC2Instance.launchInstance(AMI_ID,INSTANCE_TYPE,KEY_NAME,securityGroupId,tags);
+        WebService webService = new WebService(wsintance);
+        webServiceMap.put(wsintance.getInstanceId(),webService);
+        return wsintance.getInstanceId();
+    }
+
     public static boolean checkWebService(String dnsWebService) throws InterruptedException, IOException {
         Map<String, String> requestParams = new HashMap<>();
         HttpCaller httpCaller = new HttpCaller();

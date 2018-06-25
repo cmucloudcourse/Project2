@@ -137,6 +137,12 @@ public class LoadGeneratorLauncher {
 
     }
 
+    public static String createAutoScalingURl(String loadGenDNS){
+        System.out.println("Created URL : "+"http://"+loadGenDNS+"/autoscaling?");
+        return "http://"+loadGenDNS+"/autoscaling?";
+    }
+
+
 
 }
 

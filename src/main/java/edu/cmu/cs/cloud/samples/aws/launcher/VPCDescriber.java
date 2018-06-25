@@ -5,6 +5,7 @@ import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.DescribeVpcsResult;
 import com.amazonaws.services.ec2.model.Subnet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VPCDescriber {
@@ -29,10 +30,24 @@ public class VPCDescriber {
 
     public static List<Subnet> getDefaultSubnets(){
 
-        ec2Client.describeSubnets().getSubnets().stream().forEach(i -> System.out.println("Subnet "+i.getSubnetId()+"\t"+i.getCidrBlock()));
         return ec2Client.describeSubnets().getSubnets();
 
     }
+
+    public static List<String> getDefaultSubnetIds(){
+        List<String> subnetIDs = new ArrayList<>();
+        ec2Client.describeSubnets().getSubnets().stream().forEach(i -> {
+            System.out.println("Subnet "+i.getSubnetId()+"\t"+i.getCidrBlock());
+            subnetIDs.add(i.getSubnetId());
+        });
+
+        return subnetIDs;
+    }
+
+
+//    public static List<String> getSubnetIds(String vpcid){
+//        ec2Client.
+//    }
 
 
 

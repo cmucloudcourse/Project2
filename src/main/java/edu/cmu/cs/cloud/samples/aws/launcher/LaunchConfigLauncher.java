@@ -39,7 +39,7 @@ public class LaunchConfigLauncher {
             .build();
 
 
-    public static boolean createLaunchConfig(String configName, Set<String> securityGroups){
+    public static boolean createLaunchConfig(String configName, String securityGroupId){
 
         //Enable Detailed Monitoring
         InstanceMonitoring detailMonitoring = new InstanceMonitoring();
@@ -54,7 +54,7 @@ public class LaunchConfigLauncher {
                 .withImageId(AMI_ID)
                 .withInstanceType(INSTANCE_TYPE)
                 .withKeyName(KEY_NAME)
-                .withSecurityGroups(securityGroups)
+                .withSecurityGroups(securityGroupId)
                 .withInstanceMonitoring(detailMonitoring);
 
         //Create launch configuration response.
