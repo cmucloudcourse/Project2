@@ -3,7 +3,8 @@ This project uses AWS JAVA APIs to launch a load generator and web service insta
 
 Below is the result from load generator run : 
 
-`; 2018-06-21T23:57:41+00:00
+
+; 2018-06-21T23:57:41+00:00
 ; Horizontal Scaling Test
 ; isTestingThroughCode=true
 ; Test launched. Please check every minute for update.
