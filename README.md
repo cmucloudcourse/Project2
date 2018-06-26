@@ -128,57 +128,57 @@ ec2-18-206-160-186.compute-1.amazonaws.com=9.53
 [Current rps=66.31]
 
 [Load Generator]
-username=manasshukla.official@gmail.com
+username=XXXXXXXXXXXXXXX
 platform=AWS
 instanceId=i-06a769df5380db5fb
 instanceType=m3.medium
 hostname=ec2-18-207-202-113.compute-1.amazonaws.com
-passwd=EI5bw1SiJhNFxU4gF7P1gQ
+passwd=XXXXXXXXXXXXXXX
 
 [Web Service 0]
-username=manasshukla.official@gmail.com
+username=XXXXXXXXXXXXXXX
 platform=AWS
 instanceId=i-0d74097773c23eef8
 instanceType=m3.medium
 hostname=ec2-18-233-157-96.compute-1.amazonaws.com
 
 [Web Service 1]
-username=manasshukla.official@gmail.com
+username=XXXXXXXXXXXXXXX
 platform=AWS
 instanceId=i-03f8925896d9bd927
 instanceType=m3.medium
 hostname=ec2-54-89-141-248.compute-1.amazonaws.com
 
 [Web Service 2]
-username=manasshukla.official@gmail.com
+username=XXXXXXXXXXXXXXX
 platform=AWS
 instanceId=i-00f82d435101af334
 instanceType=m3.medium
 hostname=ec2-52-90-31-145.compute-1.amazonaws.com
 
 [Web Service 3]
-username=manasshukla.official@gmail.com
+username=XXXXXXXXXXXXXXX
 platform=AWS
 instanceId=i-009f8f268fb567c20
 instanceType=m3.medium
 hostname=ec2-18-207-226-142.compute-1.amazonaws.com
 
 [Web Service 4]
-username=manasshukla.official@gmail.com
+username=XXXXXXXXXXXXXXX
 platform=AWS
 instanceId=i-003acfa844e7009f2
 instanceType=m3.medium
 hostname=ec2-54-175-240-122.compute-1.amazonaws.com
 
 [Web Service 5]
-username=manasshukla.official@gmail.com
+username=XXXXXXXXXXXXXXX
 platform=AWS
 instanceId=i-01cae2ada667513c6
 instanceType=m3.medium
 hostname=ec2-54-161-215-38.compute-1.amazonaws.com
 
 [Web Service 6]
-username=manasshukla.official@gmail.com
+username=XXXXXXXXXXXXXXX
 platform=AWS
 instanceId=i-02b2aaa1c9c24fbac
 instanceType=m3.medium
@@ -189,4 +189,4 @@ hostname=ec2-18-206-160-186.compute-1.amazonaws.com
 rps=66.31
 pass=true
 endTime=2018-06-22T00:14:47+00:00
-{"status":1209,"success":true,"message":"Your submission is in processing, submission token is:manasshukla.official@gmail.com_vm-scaling_p2-task1-aws_390764938 Wait and check your code, score and feedback on TPZ."}`
+{"status":1209,"success":true,"message":"Your submission is in processing, submission token is:XXXXXXXXXXXXXXX_vm-scaling_p2-task1-aws_390764938 Wait and check your code, score and feedback on TPZ."}`
