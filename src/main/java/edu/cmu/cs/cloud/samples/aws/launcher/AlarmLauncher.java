@@ -20,11 +20,11 @@ public class AlarmLauncher {
             .build();
 
 
-    public static String createAlarm(String alarmName, double threshold, int period, ComparisonOperator comparisonOperator, String policyARN){
+    public static String createCPUAlarm(String alarmName, String asgName, double threshold, int period, ComparisonOperator comparisonOperator, String policyARN){
 
         Dimension dimension = new Dimension()
-                .withName("Name")
-                .withValue("ASG");
+                .withName("AutoScalingGroupName")
+                .withValue(asgName);
 
         PutMetricAlarmRequest request = new PutMetricAlarmRequest()
                 .withAlarmName(alarmName)
@@ -39,6 +39,33 @@ public class AlarmLauncher {
                 .withThreshold(threshold)
                 .withAlarmDescription(
                         "Alarm when server CPU utilization exceeds 70%")
+                .withUnit(StandardUnit.Seconds)
+                .withDimensions(dimension);
+
+        PutMetricAlarmResult response = awsCloud.putMetricAlarm(request);
+        return alarmName;
+    }
+
+
+    public static String createLBAlarm(String alarmName, String elbARN, double threshold, int period, ComparisonOperator comparisonOperator, String policyARN, String desc){
+
+        Dimension dimension = new Dimension()
+                    .withName("LoadBalancer")
+                .withValue(getLBName(elbARN));
+
+        PutMetricAlarmRequest request = new PutMetricAlarmRequest()
+                .withAlarmName(alarmName)
+                .withAlarmActions(policyARN)
+                .withComparisonOperator(
+                        comparisonOperator)
+                .withEvaluationPeriods(1)
+                .withMetricName("RequestCount")
+                .withNamespace("AWS/ApplicationELB")
+                .withPeriod(period)
+                .withStatistic(Statistic.Sum)
+                .withThreshold(threshold)
+                .withAlarmDescription(
+                        desc)
                 .withUnit(StandardUnit.Seconds)
                 .withDimensions(dimension);
 
@@ -63,4 +90,9 @@ public class AlarmLauncher {
     }
 
 
+    public static String getLBName(String arn){
+        String [] tokens = arn.split("/");
+        System.out.println(tokens[tokens.length-3]+"/"+tokens[tokens.length-2]+"/"+tokens[tokens.length-1]);
+        return tokens[tokens.length-3]+"/"+tokens[tokens.length-2]+"/"+tokens[tokens.length-1];
+    }
 }

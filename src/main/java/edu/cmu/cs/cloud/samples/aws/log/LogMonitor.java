@@ -32,7 +32,7 @@ public class LogMonitor implements Job{
         if(null != ini.get("Minute "+MINUTES)) {
             double totalRPS = ini.get("Minute " + MINUTES++).values().stream().mapToDouble(i -> Double.parseDouble(i)).sum();
             System.out.println("Minute : " + (MINUTES - 1) + " , Total RPS = " + totalRPS);
-            Project2Runner.RPS = totalRPS;
+//            Project2Runner.RPS = totalRPS;
         }
     }
 

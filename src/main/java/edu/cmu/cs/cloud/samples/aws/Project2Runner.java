@@ -67,7 +67,7 @@ public class Project2Runner {
 
     private static void monitorLogs(String testID, String loadGenerator) throws IOException, SchedulerException {
         System.out.println("Log Monitoring started.");
-        LogMonitoringJob.startMonitoring(loadGenerator, testID);
+        LogMonitoringJob.startMonitoring(loadGenerator, testID,30);
 
     }
 

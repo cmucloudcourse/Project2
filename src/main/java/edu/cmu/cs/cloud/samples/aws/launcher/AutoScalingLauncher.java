@@ -31,8 +31,8 @@ public class AutoScalingLauncher {
                 .withAutoScalingGroupName(name)
                 .withLaunchConfigurationName(launchConfigName)
                 .withMinSize(1)
-                .withMaxSize(100)
-                .withDesiredCapacity(5)
+                .withMaxSize(15)
+                .withDesiredCapacity(1)
                 .withHealthCheckGracePeriod(60)
                 .withHealthCheckType("ELB")
                 .withTargetGroupARNs(targetGroupARN)
@@ -69,30 +69,91 @@ public class AutoScalingLauncher {
         waitUntilDeleted(name);
     }
 
-    public static String createScalingOutPolicy(String asgName){
+
+    public static String createIncreaseByOneScalingOutPolicy(String asgName){
 
 
         PutScalingPolicyRequest request = new PutScalingPolicyRequest()
                 .withAutoScalingGroupName(asgName)
                 .withPolicyType("SimpleScaling")
-                .withPolicyName("ScaleOut")
-                .withAdjustmentType("ChangeInCapacity").withScalingAdjustment(10)
-                .withCooldown(100);
+                .withPolicyName("IncreaseByOneScaleOut")
+                .withAdjustmentType("ChangeInCapacity").withScalingAdjustment(1)
+                .withCooldown(60);
         PutScalingPolicyResult response = asgClient.putScalingPolicy(request);
 
         return response.getPolicyARN();
 
     }
 
-    public static String createScalingInPolicy( String asgName){
+    public static String createDecreaseByOneScalingOutPolicy(String asgName){
 
 
         PutScalingPolicyRequest request = new PutScalingPolicyRequest()
                 .withAutoScalingGroupName(asgName)
                 .withPolicyType("SimpleScaling")
-                .withPolicyName("ScaleIn")
-                .withAdjustmentType("ChangeInCapacity").withScalingAdjustment(-10)
-                .withCooldown(300);
+                .withPolicyName("DecreaseByOneScaleOut")
+                .withAdjustmentType("ChangeInCapacity").withScalingAdjustment(-1)
+                .withCooldown(60);
+        PutScalingPolicyResult response = asgClient.putScalingPolicy(request);
+
+        return response.getPolicyARN();
+
+    }
+
+
+    public static String createNormalScalingOutPolicy(String asgName){
+
+
+        PutScalingPolicyRequest request = new PutScalingPolicyRequest()
+                .withAutoScalingGroupName(asgName)
+                .withPolicyType("SimpleScaling")
+                .withPolicyName("NormalScaleOut")
+                .withAdjustmentType("ChangeInCapacity").withScalingAdjustment(2)
+                .withCooldown(60);
+        PutScalingPolicyResult response = asgClient.putScalingPolicy(request);
+
+        return response.getPolicyARN();
+
+    }
+
+    public static String creatNormaleScalingInPolicy( String asgName){
+
+        PutScalingPolicyRequest request = new PutScalingPolicyRequest()
+                .withAutoScalingGroupName(asgName)
+                .withPolicyType("SimpleScaling")
+                .withPolicyName("NormalScaleIn")
+                .withAdjustmentType("ChangeInCapacity").withScalingAdjustment(-2)
+                .withCooldown(60);
+        PutScalingPolicyResult response = asgClient.putScalingPolicy(request);
+
+        return response.getPolicyARN();
+
+    }
+
+    public static String createMaxScalingOutPolicyLB(String asgName){
+
+
+        PutScalingPolicyRequest request = new PutScalingPolicyRequest()
+                .withAutoScalingGroupName(asgName)
+                .withPolicyType("SimpleScaling")
+                .withPolicyName("MaxScaleOut")
+                .withAdjustmentType("ChangeInCapacity").withScalingAdjustment(3)
+                .withCooldown(60);
+        PutScalingPolicyResult response = asgClient.putScalingPolicy(request);
+
+        return response.getPolicyARN();
+
+    }
+
+    public static String createMaxScalingInPolicy( String asgName){
+
+
+        PutScalingPolicyRequest request = new PutScalingPolicyRequest()
+                .withAutoScalingGroupName(asgName)
+                .withPolicyType("SimpleScaling")
+                .withPolicyName("MaxScaleIn")
+                .withAdjustmentType("ChangeInCapacity").withScalingAdjustment(-3)
+                .withCooldown(60);
         PutScalingPolicyResult response = asgClient.putScalingPolicy(request);
 
         return response.getPolicyARN();

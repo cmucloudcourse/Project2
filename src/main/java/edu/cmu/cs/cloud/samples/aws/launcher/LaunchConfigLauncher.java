@@ -24,7 +24,7 @@ public class LaunchConfigLauncher {
 
     private static int count=1;
     private static final String AMI_ID         = "ami-886226f7";
-    private static final String INSTANCE_TYPE  = "t2.micro";
+    private static final String INSTANCE_TYPE  = "m3.medium";
     private static final String KEY_NAME       = "15319-demo";
     private static final List<Tag> tags = new ArrayList<>();
     public static Instance wsintance;

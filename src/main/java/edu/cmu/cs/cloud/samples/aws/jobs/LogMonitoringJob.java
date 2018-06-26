@@ -15,7 +15,7 @@ public class LogMonitoringJob {
     public LogMonitoringJob() {
     }
 
-    public static void startMonitoring(String lgDNSName, String testID) throws SchedulerException {
+    public static void startMonitoring(String lgDNSName, String testID, int repeatCount) throws SchedulerException {
         SchedulerFactory schedFact = new org.quartz.impl.StdSchedulerFactory();
 
         Scheduler sched = schedFact.getScheduler();
@@ -35,7 +35,7 @@ public class LogMonitoringJob {
                 .startNow()
                 .withSchedule(simpleSchedule()
                         .withIntervalInSeconds(DURATION)
-                        .withRepeatCount(30))
+                        .withRepeatCount(48))
                 .build();
 
         // Tell quartz to schedule the job using our trigger

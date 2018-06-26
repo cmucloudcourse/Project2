@@ -1,192 +1,194 @@
-# Project2
-This project uses AWS JAVA APIs to launch a load generator and web service instances. Webservices are scaled automatically to cater the growing requests.
-
-Below is the result from load generator run : 
-
-`; 2018-06-21T23:57:41+00:00
-; Horizontal Scaling Test
-; isTestingThroughCode=true
+; MSB AutoScaling Test
 ; Test launched. Please check every minute for update.
-; Your goal is too achieve rps=60 in 30 min
-; Minimal interval of adding instances is 100 sec
-[Test]
-type=horizontal
-testId=1529625461627
-testFile=test.1529625461627.log
-startTime=2018-06-21T23:57:41+00:00
+[Test Start]
+time=2018-06-26 05:02:49
+type=autoscaling
+testId=1529989368973
+testFile=test.1529989368973.log
 
 [Minute 1]
-ec2-18-233-157-96.compute-1.amazonaws.com=9.49
-[Current rps=9.49]
+rps=4.00
 
 [Minute 2]
-ec2-18-233-157-96.compute-1.amazonaws.com=7.30
-[Current rps=7.30]
+rps=3.98
 
 [Minute 3]
-ec2-18-233-157-96.compute-1.amazonaws.com=7.32
-[Current rps=7.32]
+rps=4.00
 
 [Minute 4]
-ec2-18-233-157-96.compute-1.amazonaws.com=7.36
-ec2-54-89-141-248.compute-1.amazonaws.com=9.45
-[Current rps=16.81]
+rps=4.00
 
 [Minute 5]
-ec2-18-233-157-96.compute-1.amazonaws.com=8.58
-ec2-54-89-141-248.compute-1.amazonaws.com=8.50
-[Current rps=17.08]
+rps=9.68
 
 [Minute 6]
-ec2-18-233-157-96.compute-1.amazonaws.com=8.59
-ec2-54-89-141-248.compute-1.amazonaws.com=8.52
-[Current rps=17.11]
+rps=9.68
 
 [Minute 7]
-ec2-18-233-157-96.compute-1.amazonaws.com=8.59
-ec2-54-89-141-248.compute-1.amazonaws.com=8.54
-ec2-52-90-31-145.compute-1.amazonaws.com=9.54
-[Current rps=26.67]
+rps=11.93
 
 [Minute 8]
-ec2-18-233-157-96.compute-1.amazonaws.com=9.77
-ec2-54-89-141-248.compute-1.amazonaws.com=8.94
-ec2-52-90-31-145.compute-1.amazonaws.com=8.92
-[Current rps=27.63]
+rps=19.80
 
 [Minute 9]
-ec2-18-233-157-96.compute-1.amazonaws.com=9.74
-ec2-54-89-141-248.compute-1.amazonaws.com=8.96
-ec2-52-90-31-145.compute-1.amazonaws.com=8.96
-ec2-18-207-226-142.compute-1.amazonaws.com=9.50
-[Current rps=37.16]
+rps=19.80
 
 [Minute 10]
-ec2-18-233-157-96.compute-1.amazonaws.com=9.20
-ec2-54-89-141-248.compute-1.amazonaws.com=9.74
-ec2-52-90-31-145.compute-1.amazonaws.com=9.14
-ec2-18-207-226-142.compute-1.amazonaws.com=9.17
-[Current rps=37.25]
+rps=19.83
 
 [Minute 11]
-ec2-18-233-157-96.compute-1.amazonaws.com=9.22
-ec2-54-89-141-248.compute-1.amazonaws.com=9.74
-ec2-52-90-31-145.compute-1.amazonaws.com=9.17
-ec2-18-207-226-142.compute-1.amazonaws.com=9.21
-[Current rps=37.34]
+rps=11.93
 
 [Minute 12]
-ec2-18-233-157-96.compute-1.amazonaws.com=9.20
-ec2-54-89-141-248.compute-1.amazonaws.com=9.75
-ec2-52-90-31-145.compute-1.amazonaws.com=9.08
-ec2-18-207-226-142.compute-1.amazonaws.com=9.25
-ec2-54-175-240-122.compute-1.amazonaws.com=9.50
-[Current rps=46.78]
+rps=11.93
 
 [Minute 13]
-ec2-18-233-157-96.compute-1.amazonaws.com=9.35
-ec2-54-89-141-248.compute-1.amazonaws.com=9.31
-ec2-52-90-31-145.compute-1.amazonaws.com=9.73
-ec2-18-207-226-142.compute-1.amazonaws.com=9.32
-ec2-54-175-240-122.compute-1.amazonaws.com=9.27
-[Current rps=46.98]
+rps=11.91
 
 [Minute 14]
-ec2-18-233-157-96.compute-1.amazonaws.com=9.35
-ec2-54-89-141-248.compute-1.amazonaws.com=9.30
-ec2-52-90-31-145.compute-1.amazonaws.com=9.74
-ec2-18-207-226-142.compute-1.amazonaws.com=9.34
-ec2-54-175-240-122.compute-1.amazonaws.com=9.29
-[Current rps=47.02]
+rps=19.68
 
 [Minute 15]
-ec2-18-233-157-96.compute-1.amazonaws.com=9.33
-ec2-54-89-141-248.compute-1.amazonaws.com=9.33
-ec2-52-90-31-145.compute-1.amazonaws.com=9.72
-ec2-18-207-226-142.compute-1.amazonaws.com=9.38
-ec2-54-175-240-122.compute-1.amazonaws.com=9.31
-ec2-54-161-215-38.compute-1.amazonaws.com=9.58
-[Current rps=56.65]
+rps=19.81
 
 [Minute 16]
-ec2-18-233-157-96.compute-1.amazonaws.com=9.45
-ec2-54-89-141-248.compute-1.amazonaws.com=9.42
-ec2-52-90-31-145.compute-1.amazonaws.com=9.35
-ec2-18-207-226-142.compute-1.amazonaws.com=9.80
-ec2-54-175-240-122.compute-1.amazonaws.com=9.37
-ec2-54-161-215-38.compute-1.amazonaws.com=9.33
-[Current rps=56.72]
+rps=19.78
 
 [Minute 17]
-ec2-18-233-157-96.compute-1.amazonaws.com=9.43
-ec2-54-89-141-248.compute-1.amazonaws.com=9.41
-ec2-52-90-31-145.compute-1.amazonaws.com=9.39
-ec2-18-207-226-142.compute-1.amazonaws.com=9.78
-ec2-54-175-240-122.compute-1.amazonaws.com=9.41
-ec2-54-161-215-38.compute-1.amazonaws.com=9.36
-ec2-18-206-160-186.compute-1.amazonaws.com=9.53
-[Current rps=66.31]
+rps=11.95
+
+[Minute 18]
+rps=11.93
+
+[Minute 19]
+rps=10.83
+
+[Minute 20]
+rps=4.00
+
+[Minute 21]
+rps=4.00
+
+[Minute 22]
+rps=4.00
+
+[Minute 23]
+rps=4.00
+
+[Minute 24]
+rps=4.00
+
+[Minute 25]
+rps=0
+
+[Minute 26]
+rps=0
+
+[Minute 27]
+rps=0
+
+[Minute 28]
+rps=.25
+
+[Minute 29]
+rps=3.66
+
+[Minute 30]
+rps=19.20
+
+[Minute 31]
+rps=13.70
+
+[Minute 32]
+rps=8.21
+
+[Minute 33]
+rps=29.56
+
+[Minute 34]
+rps=44.38
+
+[Minute 35]
+rps=44.55
+
+[Minute 36]
+rps=19.83
+
+[Minute 37]
+rps=44.56
+
+[Minute 38]
+rps=44.56
+
+[Minute 39]
+rps=41.55
+
+[Minute 40]
+rps=38.45
+
+[Minute 41]
+rps=19.31
+
+[Minute 42]
+rps=28.41
+
+[Minute 43]
+rps=4.00
+
+[Minute 44]
+rps=4.00
+
+[Minute 45]
+rps=4.00
+
+[Minute 46]
+rps=4.00
+
+[Minute 47]
+rps=4.00
+
+[Minute 48]
+rps=4.00
 
 [Load Generator]
-username=manasshukla.official@gmail.com
+username=XXXXXXXXXXXXXXX
 platform=AWS
-instanceId=i-06a769df5380db5fb
+instanceId=i-02723a750c8f71307
 instanceType=m3.medium
-hostname=ec2-18-207-202-113.compute-1.amazonaws.com
-passwd=EI5bw1SiJhNFxU4gF7P1gQ
+hostname=ec2-54-227-211-59.compute-1.amazonaws.com
 
-[Web Service 0]
-username=manasshukla.official@gmail.com
-platform=AWS
-instanceId=i-0d74097773c23eef8
-instanceType=m3.medium
-hostname=ec2-18-233-157-96.compute-1.amazonaws.com
+[Elastic Load Balancer]
+dns=project2-elb-826668520.us-east-1.elb.amazonaws.com
 
-[Web Service 1]
-username=manasshukla.official@gmail.com
-platform=AWS
-instanceId=i-03f8925896d9bd927
-instanceType=m3.medium
-hostname=ec2-54-89-141-248.compute-1.amazonaws.com
-
-[Web Service 2]
-username=manasshukla.official@gmail.com
-platform=AWS
-instanceId=i-00f82d435101af334
-instanceType=m3.medium
-hostname=ec2-52-90-31-145.compute-1.amazonaws.com
-
-[Web Service 3]
-username=manasshukla.official@gmail.com
-platform=AWS
-instanceId=i-009f8f268fb567c20
-instanceType=m3.medium
-hostname=ec2-18-207-226-142.compute-1.amazonaws.com
-
-[Web Service 4]
-username=manasshukla.official@gmail.com
-platform=AWS
-instanceId=i-003acfa844e7009f2
-instanceType=m3.medium
-hostname=ec2-54-175-240-122.compute-1.amazonaws.com
-
-[Web Service 5]
-username=manasshukla.official@gmail.com
-platform=AWS
-instanceId=i-01cae2ada667513c6
-instanceType=m3.medium
-hostname=ec2-54-161-215-38.compute-1.amazonaws.com
-
-[Web Service 6]
-username=manasshukla.official@gmail.com
-platform=AWS
-instanceId=i-02b2aaa1c9c24fbac
-instanceType=m3.medium
-hostname=ec2-18-206-160-186.compute-1.amazonaws.com
+[Test End]
+time=2018-06-26 05:57:30
+averageRps=14.17
+maxRps=44.56
+pattern=557
+ih=136.48
+; Instance-Hour Usage
+; i-009c08051cf6b787d	m3.medium	0.62	2018-06-26 05:50:00	2018-06-26 05:50:37
+; i-02740da344151735c	m3.medium	11.97	2018-06-26 05:09:34	2018-06-26 05:21:32
+; i-02b444ddda8721c9c	m3.medium	5.20	2018-06-26 05:40:24	2018-06-26 05:45:36
+; i-03588310228190df2	m3.medium	9.38	2018-06-26 05:17:32	2018-06-26 05:26:55
+; i-039c332336881b4bb	m3.medium	7.27	2018-06-26 05:09:35	2018-06-26 05:16:51
+; i-05c4637fc7ec803ef	m3.medium	5.43	2018-06-26 05:38:36	2018-06-26 05:44:02
+; i-0639b12676bf4c511	m3.medium	13.85	2018-06-26 05:02:49	2018-06-26 05:16:40
+; i-066e0f07fe27beb75	m3.medium	6.85	2018-06-26 05:40:24	2018-06-26 05:47:15
+; i-070d3d8141f8e4591	m3.medium	5.28	2018-06-26 05:41:58	2018-06-26 05:47:15
+; i-07c97534e26f669fa	m3.medium	5.43	2018-06-26 05:38:36	2018-06-26 05:44:02
+; i-085ce5c8553ee9bd9	m3.medium	10.42	2018-06-26 05:31:32	2018-06-26 05:41:57
+; i-09422d365dacfc486	m3.medium	8.95	2018-06-26 05:41:58	2018-06-26 05:50:55
+; i-095f3d0b9b3496031	m3.medium	0.53	2018-06-26 05:26:01	2018-06-26 05:26:33
+; i-0a1b45e458e060f64	m3.medium	5.72	2018-06-26 05:16:02	2018-06-26 05:21:45
+; i-0b06efab46325a5c9	m3.medium	4.60	2018-06-26 05:50:00	2018-06-26 05:54:36
+; i-0be76a3178f09188a	m3.medium	5.43	2018-06-26 05:38:36	2018-06-26 05:44:02
+; i-0d6a3a54d2fab5d12	m3.medium	1.07	2018-06-26 05:26:01	2018-06-26 05:27:05
+; i-0d82f84d4303ce91b	m3.medium	10.65	2018-06-26 05:31:19	2018-06-26 05:41:58
+; i-0d90d48598e8acc5c	m3.medium	0.53	2018-06-26 05:54:02	2018-06-26 05:54:34
+; i-0e5bba8f9f4cc311f	m3.medium	8.95	2018-06-26 05:41:58	2018-06-26 05:50:55
+; i-0f126a1f54ba736e5	m3.medium	3.17	2018-06-26 05:54:00	2018-06-26 05:57:10
+; i-0f1ee33c058f5d57c	m3.medium	5.18	2018-06-26 05:40:24	2018-06-26 05:45:35
 
 ; MSB is validating...
-[Test End]
-rps=66.31
-pass=true
-endTime=2018-06-22T00:14:47+00:00
-{"status":1209,"success":true,"message":"Your submission is in processing, submission token is:manasshukla.official@gmail.com_vm-scaling_p2-task1-aws_390764938 Wait and check your code, score and feedback on TPZ."}`
+{"status":1209,"success":true,"message":"Your submission is in processing, submission token is:XXXXXXXXXXXXXXX_vm-scaling_p2-task2-autoscaling_1130977804 Wait and check your code, score and feedback on TPZ."}; Test finished

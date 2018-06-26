@@ -1,17 +1,17 @@
 package edu.cmu.cs.cloud.samples.aws;
 
 import com.amazonaws.AmazonClientException;
-import com.amazonaws.services.autoscaling.model.Alarm;
 import com.amazonaws.services.autoscaling.model.AmazonAutoScalingException;
 import com.amazonaws.services.cloudwatch.model.ComparisonOperator;
-import com.amazonaws.services.cloudwatch.model.DescribeAlarmsRequest;
-import com.amazonaws.services.cloudwatch.model.DescribeAlarmsResult;
-import com.amazonaws.services.ec2.model.Instance;
+import edu.cmu.cs.cloud.samples.aws.html.TestIDParser;
 import edu.cmu.cs.cloud.samples.aws.http.HttpCaller;
+import edu.cmu.cs.cloud.samples.aws.jobs.LogMonitoringJob;
 import edu.cmu.cs.cloud.samples.aws.launcher.*;
+import edu.cmu.cs.cloud.samples.aws.log.LogMonitor;
 import edu.cmu.cs.cloud.samples.aws.pojos.ELB;
 import edu.cmu.cs.cloud.samples.aws.pojos.LoadGenerator;
 import edu.cmu.cs.cloud.samples.aws.pojos.TargetGroup;
+import org.quartz.SchedulerException;
 
 import java.io.IOException;
 import java.util.*;
@@ -69,12 +69,25 @@ public class AutoScalingRunner {
 
         AutoScalingLauncher.createASG(asgName,LAUNCHCONFIG,targetGroup.getArn(),elb.getAvailabilityZones());
 
-        String lowCPUARN = AutoScalingLauncher.createScalingInPolicy(asgName);
-        String highCPUARN = AutoScalingLauncher.createScalingOutPolicy(asgName);
+        String lowestCPUARN = AutoScalingLauncher.createMaxScalingInPolicy(asgName);
+        String highestCPUARN = AutoScalingLauncher.createMaxScalingOutPolicyLB(asgName);
+
+        String highCPUARN = AutoScalingLauncher.createNormalScalingOutPolicy(asgName);
+        String lowCPUARN = AutoScalingLauncher.creatNormaleScalingInPolicy(asgName);
+
+        String increaseByOneCPUARN = AutoScalingLauncher.createIncreaseByOneScalingOutPolicy(asgName);
+        String decreaseByOneCPUARN = AutoScalingLauncher.createDecreaseByOneScalingOutPolicy(asgName);
 
 
-        alarmNames.add(AlarmLauncher.createAlarm("highCPUAlarm", 60d, 60, ComparisonOperator.GreaterThanThreshold, highCPUARN));
-        alarmNames.add(AlarmLauncher.createAlarm("lowCPUAlarm", 30d, 180, ComparisonOperator.LessThanThreshold, lowCPUARN));
+        alarmNames.add(AlarmLauncher.createCPUAlarm("highestCPUAlarm",asgName, 60d, 60, ComparisonOperator.GreaterThanThreshold, highestCPUARN));
+        alarmNames.add(AlarmLauncher.createCPUAlarm("lowestCPUAlarm", asgName, 15d, 60, ComparisonOperator.LessThanThreshold, lowestCPUARN));
+
+        alarmNames.add(AlarmLauncher.createCPUAlarm("increasebyone",asgName, 35d, 60, ComparisonOperator.GreaterThanThreshold, increaseByOneCPUARN));
+        alarmNames.add(AlarmLauncher.createCPUAlarm("descreasebyone", asgName, 25d, 60, ComparisonOperator.LessThanThreshold, decreaseByOneCPUARN));
+
+        alarmNames.add(AlarmLauncher.createCPUAlarm("highCPUAlarm",asgName, 50d, 60, ComparisonOperator.GreaterThanThreshold, highCPUARN));
+        alarmNames.add(AlarmLauncher.createCPUAlarm("lowCPUAlarm",asgName, 30d, 60, ComparisonOperator.LessThanThreshold, lowCPUARN));
+
 
 
 
@@ -176,19 +189,25 @@ public class AutoScalingRunner {
     }
 
 
-    private static void startLoadTest(String loadGenDNSName) throws InterruptedException {
+    private static void startLoadTest(String loadGenDNSName) throws InterruptedException, IOException, SchedulerException {
         System.out.println("Starting load test @ " + loadGenDNSName);
         Map<String, String> requestParams = new HashMap<>();
         HttpCaller httpCaller = new HttpCaller();
         requestParams.put("dns", elb.getDnsName());
-        Map<String, String> responseMap = new HashMap<>();
+//        requestParams.put("dns", loadGenDNSName);
 
-        for (int i = 0; i < 5; i++) { //Try making request 5 times
+        Map<String, String> responseMap = new HashMap<>();
+        String testID = "SUBMISSIONFAILED";
+        for (int i = 0; i < 10; i++) { //Try making request 5 times
             try {
                 Thread.sleep(10000);
                 responseMap = httpCaller.doGet(LoadGeneratorLauncher.createAutoScalingURl(loadGenDNSName), requestParams);
                 if (responseMap.get("httpCode").equals("200")) {
                     System.out.println("Success on submitting the web service instance.");
+                    testID = TestIDParser.getTestID(responseMap.get("content"));
+                    if (testID.matches("/log\\?name=test\\.\\d{13}\\.log")) {
+                        break;
+                    }
                     break;
                 }
             } catch (IOException e) {
@@ -196,6 +215,23 @@ public class AutoScalingRunner {
                 continue;
             }
         }
+
+        if (!testID.equals("SUBMISSIONFAILED")) {
+            monitorLogs(testID, loadGenDNSName);
+        }
+
+
+        if (LogMonitor.MINUTES == 48) {
+            System.out.println("48 minutes have passed. Starting teardown");
+
+        }
     }
+
+        private static void monitorLogs(String testID, String loadGenerator) throws IOException, SchedulerException {
+            System.out.println("Log Monitoring started.");
+            LogMonitoringJob.startMonitoring(loadGenerator, testID, 48);
+
+        }
+
 
 }
