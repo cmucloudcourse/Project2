@@ -1,7 +1,7 @@
 # Project2
 This project uses AWS JAVA APIs to launch a load generator and web service instances. Webservices are scaled automatically to cater the growing requests.
 
-Below is the result from load generator run : 
+Below is the result from successful load generator run : 
 
 
 ; 2018-06-21T23:57:41+00:00
